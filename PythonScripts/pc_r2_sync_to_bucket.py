@@ -1,8 +1,9 @@
 import os
 import boto3
-import requests
+from dotenv import load_dotenv
 
 #Upload new files to R2. Delete from R2 any files that are no longer in local folder.
+load_dotenv("secrets.env")
 
 # CONFIG
 LOCAL_FOLDER = os.getenv("LOCAL_FOLDER")
@@ -24,6 +25,8 @@ s3 = boto3.client(
 local_files = []
 for root, _, files in os.walk(LOCAL_FOLDER):
     for f in files:
+        if f.lower() == "desktop.ini" or f.startswith("."):
+            continue #skip desktop.ini hidden file
         rel_path = os.path.relpath(os.path.join(root, f), LOCAL_FOLDER).replace("\\", "/")
         local_files.append(rel_path)
 
@@ -43,4 +46,4 @@ for file in r2_files:
         s3.delete_object(Bucket=R2_BUCKET_NAME, Key=file)
         print(f"Deleted {file} from R2")
 
-print("✅ R2 bucket synced with local folder")
+print("R2 bucket synced with local folder")

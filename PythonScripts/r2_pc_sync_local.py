@@ -1,10 +1,11 @@
 import os
 import boto3
+from dotenv import load_dotenv
 
 #Goal: Local folder becomes identical to R2.
 #Download new files from R2. Delete local files not in R2.
 #Do not touch R2 bucket.
-
+load_dotenv("secrets.env")
 LOCAL_FOLDER = os.getenv("LOCAL_FOLDER")
 R2_BUCKET_NAME = os.getenv("R2_BUCKET_NAME")
 R2_ACCOUNT_ID = os.getenv("R2_ACCOUNT_ID")
@@ -45,4 +46,4 @@ for file in local_files:
         os.remove(os.path.join(LOCAL_FOLDER, file.replace("/", os.sep)))
         print(f"Deleted local file {file}")
 
-print("✅ Local folder synced with R2 bucket")
+print("Local folder synced with R2 bucket")
