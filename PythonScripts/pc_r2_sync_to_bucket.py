@@ -2,12 +2,14 @@ import os
 import boto3
 import requests
 
+#Upload new files to R2. Delete from R2 any files that are no longer in local folder.
+
 # CONFIG
-LOCAL_FOLDER = r"C:\Users\robi\Music"
-R2_BUCKET_NAME = "music"
-R2_ACCOUNT_ID = "your-account-id"
-R2_ACCESS_KEY_ID = "your-access-key"
-R2_SECRET_ACCESS_KEY = "your-secret-key"
+LOCAL_FOLDER = os.getenv("LOCAL_FOLDER")
+R2_BUCKET_NAME = os.getenv("R2_BUCKET_NAME")
+R2_ACCOUNT_ID = os.getenv("R2_ACCOUNT_ID")
+R2_ACCESS_KEY_ID = os.getenv("R2_ACCESS_KEY_ID")
+R2_SECRET_ACCESS_KEY = os.getenv("R2_SECRET_ACCESS_KEY")
 R2_ENDPOINT = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
 
 # INIT S3 CLIENT
