@@ -1,0 +1,5 @@
+LOCAL_FOLDER=plain text folderu unde vrei sa sync-ui/iei melodiile ex:LOCAL_FOLDER=C:\Users\robi\Music
+R2_BUCKET_NAME=music #asa am denumit drive-u
+R2_ACCOUNT_ID=tzr
+R2_ACCESS_KEY_ID=tzr
+R2_SECRET_ACCESS_KEY=tzr
