@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get install ffmpeg -y
-          pip install yt-dlp boto3
+          pip install -U yt-dlp boto3
       - name: Run sync script
         env:
           ACCESS_KEY: ${{ secrets.R2_ACCESS_KEY_ID }}
