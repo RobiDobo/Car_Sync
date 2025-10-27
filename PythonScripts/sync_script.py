@@ -5,11 +5,13 @@ import json
 import logging
 import shutil # Added for clean directory removal
 
+COOKIES_FILE = "cookies.txt"
+DOWNLOAD_ARCHIVE_FILE = "download_archive.txt" 
 #PLAYLIST_URL = os.getenv("PLAYLIST_URL")
-R2_ACCESS_KEY = os.environ.get('R2_ACCESS_KEY_ID')
-R2_SECRET_KEY = os.environ.get('R2_SECRET_ACCESS_KEY')
-R2_BUCKET = os.environ.get('R2_BUCKET_NAME')
-R2_ACCOUNT_ID = os.environ.get('R2_ACCOUNT_ID')
+R2_ACCESS_KEY = os.environ.get('ACCESS_KEY')
+R2_SECRET_KEY = os.environ.get('SECRET_KEY')
+R2_BUCKET = os.environ.get('BUCKET')
+R2_ACCOUNT_ID = os.environ.get('ACCOUNT_ID')
 R2_ENDPOINT = f"https://{R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
 
 PLAYLISTS_JSON_FILE = "playlists.json"
@@ -41,7 +43,9 @@ def download_playlist(playlist_id):
             "preferredquality": "320",
         }],
         # On GitHub Actions, ffmpeg is already installed and in PATH
-        "restrictfilenames": True #filename safety
+        "restrictfilenames": True, #filename safety
+        "cookiefile": COOKIES_FILE,
+        "download_archive": DOWNLOAD_ARCHIVE_FILE, # Use the archive file
     }
     logging.info(f"Downloading playlist: {playlist_url}")
     try:

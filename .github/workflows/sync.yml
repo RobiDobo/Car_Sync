@@ -9,6 +9,14 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Cache download archive
+        uses: actions/cache@v4
+        with:
+          path: download_archive.txt # The file we want to cache
+          # Create a unique cache key. 
+          # 'v1' can be changed if you ever want to force-invalidate the cache
+          key: ${{ runner.os }}-yt-dlp-archive-v1
+
       - name: Checkout code
         uses: actions/checkout@v4
 
