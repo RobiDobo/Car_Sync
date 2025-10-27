@@ -16,14 +16,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: |
-	  pip install yt-dlp ffmpeg-python boto3
-
+          sudo apt-get install ffmpeg -y
+          pip install yt-dlp boto3
       - name: Run sync script
         env:
-          CLOUDFLARE_ACCESS_KEY: ${{ secrets.CLOUDFLARE_ACCESS_KEY }}
-          CLOUDFLARE_SECRET_KEY: ${{ secrets.CLOUDFLARE_SECRET_KEY }}
+          ACCESS_KEY: ${{ secrets.R2_ACCESS_KEY_ID }}
+          SECRET_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          BUCKET: ${{ secrets.R2_BUCKET_NAME }}
+          ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
         run: |
           python PythonScripts/sync_script.py
