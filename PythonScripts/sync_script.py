@@ -45,10 +45,10 @@ def download_playlist(playlist_id):
         # On GitHub Actions, ffmpeg is already installed and in PATH
         "restrictfilenames": True, #filename safety
         # Sleep X seconds before each HTTP request
-        "sleep_requests": 3,
+        #"sleep_requests": 3,
         
         # Sleep Y seconds between downloading videos
-        "sleep_interval": 5,
+        #"sleep_interval": 5,
         "download_archive": DOWNLOAD_ARCHIVE_FILE, # Use the archive file
         "cookiefile": COOKIES_FILE
     }
