@@ -44,7 +44,11 @@ def download_playlist(playlist_id):
         }],
         # On GitHub Actions, ffmpeg is already installed and in PATH
         "restrictfilenames": True, #filename safety
-        "cookiefile": COOKIES_FILE,
+        # Sleep X seconds before each HTTP request
+        "sleep_requests": 3,
+        
+        # Sleep Y seconds between downloading videos
+        "sleep_interval": 5,
         "download_archive": DOWNLOAD_ARCHIVE_FILE, # Use the archive file
     }
     logging.info(f"Downloading playlist: {playlist_url}")
