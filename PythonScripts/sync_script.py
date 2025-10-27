@@ -33,7 +33,7 @@ def get_playlists():
 def download_playlist(playlist_id):
     playlist_url = f"https://www.youtube.com/playlist?list={playlist_id}"
     ydl_opts = {
-        "format": "bestaudio[ext=m4a]/bestaudio",
+        "format": "bestaudio/best",
         "outtmpl": os.path.join(OUTPUT_DIR, "%(playlist)s", "%(playlist_index)s-%(title)s.%(ext)s"),
         "ignoreerrors": True,
         "quiet": False,
