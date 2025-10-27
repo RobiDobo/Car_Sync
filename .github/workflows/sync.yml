@@ -1,32 +1,29 @@
-name: Sync YouTube playlists to Cloudflare R2
+name: Sync YouTube playlist to Cloudflare
 
 on:
   schedule:
-    - cron: "0 */12 * * *"  # Run every 12 hours
-  workflow_dispatch:         # Allow manual trigger from the GitHub UI
+    - cron: '0 8,20 * * *'
+  workflow_dispatch:
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install yt-dlp boto3
+          pip install yt-dlp ffmpeg-python boto3
 
       - name: Run sync script
         env:
-          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
-          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          OUTPUT_DIR: ./downloads
-        run: python ./PythonScripts/sync_to_r2.py
+          CLOUDFLARE_ACCESS_KEY: ${{ secrets.CLOUDFLARE_ACCESS_KEY }}
+          CLOUDFLARE_SECRET_KEY: ${{ secrets.CLOUDFLARE_SECRET_KEY }}
+        run: |
+          python PythonScripts/sync_script.py
