@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install yt-dlp ffmpeg-python boto3
+	  pip install yt-dlp ffmpeg-python boto3
 
       - name: Run sync script
         env:
