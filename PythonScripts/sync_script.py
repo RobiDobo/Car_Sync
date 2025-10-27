@@ -50,6 +50,7 @@ def download_playlist(playlist_id):
         # Sleep Y seconds between downloading videos
         "sleep_interval": 5,
         "download_archive": DOWNLOAD_ARCHIVE_FILE, # Use the archive file
+        "cookiefile": COOKIES_FILE
     }
     logging.info(f"Downloading playlist: {playlist_url}")
     try:
