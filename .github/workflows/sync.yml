@@ -9,6 +9,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug Environment Variables
+        run: |
+          echo "R2_ACCOUNT_ID is: [${{ secrets.R2_ACCOUNT_ID }}]"
+          echo "R2_BUCKET_NAME is: [${{ secrets.R2_BUCKET_NAME }}]"
       - name: Cache download archive
         uses: actions/cache@v4
         with:
