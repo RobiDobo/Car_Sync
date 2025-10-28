@@ -60,7 +60,7 @@ def download_playlist(playlist_id):
     except Exception as e:
         logging.error(f"Error during yt-dlp download for {playlist_id}: {e}")
 
-def upload_to_cloudflare(bucket_name, output_dir):
+def upload_to_cloudflare():
     logging.info("Syncing to Cloudflare R2...")
     s3 = boto3.client(
         's3',
