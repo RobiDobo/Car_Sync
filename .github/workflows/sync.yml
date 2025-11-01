@@ -30,6 +30,7 @@ jobs:
           python-version: '3.11'
       - name: Install dependencies
         run: |
+          sudo apt-get update
           sudo apt-get install ffmpeg -y
           pip install -U yt-dlp boto3
       - name: Run sync script
