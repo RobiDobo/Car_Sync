@@ -1,14 +1,26 @@
 name: Sync YouTube playlist to Cloudflare
 
 on:
-  schedule:
-    - cron: '0 8,20 * * *'
+#  schedule:
+#    - cron: '0 8,20 * * *'
   workflow_dispatch:
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug Environment Variables
+        run: |
+          echo "R2_ACCOUNT_ID is: [${{ secrets.R2_ACCOUNT_ID }}]"
+          echo "R2_BUCKET_NAME is: [${{ secrets.R2_BUCKET_NAME }}]"
+      - name: Cache download archive
+        uses: actions/cache@v4
+        with:
+          path: download_archive.txt # The file we want to cache
+          # Create a unique cache key. 
+          # 'v1' can be changed if you ever want to force-invalidate the cache
+          key: ${{ runner.os }}-yt-dlp-archive-v1
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -16,14 +28,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: |
-	  pip install yt-dlp ffmpeg-python boto3
-
+          sudo apt-get update
+          sudo apt-get install ffmpeg -y
+          pip install -U yt-dlp boto3
       - name: Run sync script
         env:
-          CLOUDFLARE_ACCESS_KEY: ${{ secrets.CLOUDFLARE_ACCESS_KEY }}
-          CLOUDFLARE_SECRET_KEY: ${{ secrets.CLOUDFLARE_SECRET_KEY }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
         run: |
           python PythonScripts/sync_script.py
